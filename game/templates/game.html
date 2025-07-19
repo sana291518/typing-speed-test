@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="text" class="font-weight-bold">Type the following:</label>
+          <p class="text-break">{{ text|safe }}</p>
+          <input type="text" name="typed_text" class="form-control" id="text" autofocus>
+          <input type="hidden" name="text" value="{{ text|safe }}">
+          <input type="hidden" name="start_time" value="{{ start_time }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% if error %}
+      <div class="alert alert-danger mt-3" role="alert">
+        {{ error }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Add this script tag just before the closing body tag -->
+<script src="{% static 'js/timer.js' %}"></script>
+{% endblock %}
